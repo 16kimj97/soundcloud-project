@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+<<<<<<< HEAD
 
 likes = db.Table(
     'likes',
@@ -9,6 +10,17 @@ likes = db.Table(
 if environment == "production":
     likes.schema = SCHEMA
 
+=======
+likes = db.Table(
+    'likes',
+    db.Model.metadata,
+    db.Column("user_id", db.Integer, db.ForeignKey("users.id"), primary_key=True),
+    db.Column("song_id", db.Integer, db.ForeignKey("songs.id"), primary_key=True)
+)
+
+if environment == "production":
+    __table_args__ = {'schema': SCHEMA}
+>>>>>>> 49749ed45c218ea77617831afc5695f12fe2de3e
 
 # from .db import db, environment, SCHEMA
 # from flask_sqlalchemy import SQLAlchemy
