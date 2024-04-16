@@ -1,4 +1,5 @@
 <form method="post" action="/api/auth/login">
+{{ form.hidden_tag() }}
 {{form.email.label}}{{form.email}}
 {{form.password.label}}{{form.password}}
 {{form.submit}}

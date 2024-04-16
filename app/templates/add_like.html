@@ -1,2 +1,4 @@
 <form method="post" action="/song/{{ songId }}/likes/add">
-    {{form.submit.label}}{{form.submit}}
+    {{ form.hidden_tag() }}
+    {{ form.submit }}
+</form>

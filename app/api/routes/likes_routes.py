@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify, render_template
 from app.models import likes, db, Song, User
 from app.forms import AddLikeToSong
 from flask_login import login_required, current_user
-from sqlalchemy.sql import select, func, text
+from sqlalchemy import delete, func
 
 likes_routes = Blueprint('likes', __name__)
 
@@ -33,19 +33,24 @@ def add_song_like(songId):
         print("add a like!")
         return render_template("add_like.html", form=form, songId=songId)
 
-    elif request.method=="POST":
-        user_like = db.session.query(likes).filter(likes.c.user_id == current_user_id).count()
+   
+    existing_like = db.session.query(likes).filter_by(user_id=current_user_id, song_id=songId).first()
+        ## use first if anything match it will return the first record and return non if no record match
 
-        if user_like >1:
-            db.session.execute(text("DELETE FROM likes WHERE song_id=:songId AND user_id=:current_user_id"), {'songId': songId, 'current_user_id': current_user_id})
-            db.session.commit()
-            print("user like has been removed")
-        else:
-            like = likes.insert().values(user_id = current_user_id, song_id = songId)
-            db.session.execute(like)
-            db.session.commit()
-            likes_count = db.session.query(likes).filter(likes.c.song_id == songId).count()
-            return jsonify(likes_count)
+    
+    if existing_like is not None:
+        delete_sql = delete(likes).where(likes.c.user_id == current_user.id, likes.c.song_id == songId)
+        db.session.execute(delete_sql)
+        db.session.commit()
+        like_count = db.session.query(func.count()).filter(likes.c.song_id == songId).scalar()
+        return jsonify({ "likes removed": like_count})
+
+    else:
+        like = likes.insert().values(user_id = current_user_id, song_id = songId)
+        db.session.execute(like)
+        db.session.commit() 
+        like_count = db.session.query(func.count()).filter(likes.c.song_id == songId).scalar()
+        return jsonify({"likes added":like_count})
 
 
-    return render_template("add_like.html", form=form, songId=songId)
+    # return render_template("add_like.html", form=form, songId=songId)

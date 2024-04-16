@@ -30,6 +30,7 @@ def login():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
         login_user(user)
+        print("login")
         return user.to_dict()
     return render_template("login.html", form=form)
 
