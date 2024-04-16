@@ -1,1 +1,11 @@
+<<<<<<< HEAD
 
+=======
+.footer{
+    position: fixed;
+    top: 91%;
+    background-color: black;
+    width: 100%;
+    height: 50px;
+}
+>>>>>>> ec91776feb6056fb691c7f55db049b7049f3db34
