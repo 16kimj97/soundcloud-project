@@ -16,6 +16,7 @@ function ProfileButton() {
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
   const ulRef = useRef();
+  // const navigate = useNavigate(); // Import useNavigate from react-router-dom
 
   const toggleMenu = (e) => {
     e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
@@ -44,15 +45,6 @@ function ProfileButton() {
     closeMenu();
   };
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
-  const navigate = useNavigate()
->>>>>>> parent of 7bd8685 (fix conflict)
-=======
-  const navigate = useNavigate()
->>>>>>> parent of 7bd8685 (fix conflict)
   return (
     <>
       <button className="nav-user-button" onClick={toggleMenu}>
