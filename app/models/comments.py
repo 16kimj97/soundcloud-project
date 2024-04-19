@@ -16,7 +16,6 @@ class Comment(db.Model):
     song = db.relationship("Song", back_populates="comments")
     user = db.relationship("User", back_populates="comments")
 
-<<<<<<< HEAD
 def to_dict(self):
     return {
         "id": self.id,
@@ -25,13 +24,3 @@ def to_dict(self):
         "body": self.body,
         "created_at": self.created_at.isoformat()
     }
-=======
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "song_id": self.song_id,
-            "user_id": self.user_id,
-            "body": self.body,
-            "created_at": self.created_at.isoformat()
-        }
->>>>>>> justin
