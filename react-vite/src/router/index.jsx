@@ -17,8 +17,13 @@ export const router = createBrowserRouter([
         element: <HomePage/>,
       },
       {
+<<<<<<< HEAD
         path: "/login",
         element: <LoginFormPage />,
+=======
+        path: "/songs/:songId",
+        element: <SongDetails/>
+>>>>>>> parent of 93c5d29 (checking out into dev)
       },
       {
         path: "/user/current",
