@@ -8,14 +8,17 @@ from flask_login import LoginManager
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
-from .api.routes.song_routes import song_routes
 from .api.routes.playlist_routes import playlist_routes
 from .seeds import seed_commands
 from .config import Config
 from .api.routes.comments_routes import comment_routes
 from .api.routes.likes_routes import likes_routes, current_likes
+from flask_caching import Cache
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
+app.config["CACHE_TYPE"] = 'SimpleCache'
+cache = Cache(app)
+from .api.routes.song_routes import song_routes
 
 # Setup login manager
 login = LoginManager(app)

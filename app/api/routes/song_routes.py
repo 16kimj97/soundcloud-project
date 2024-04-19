@@ -4,11 +4,12 @@ from ...forms import AddSongForm
 from flask_login import current_user, login_required
 from datetime import datetime
 from app.aws_helpers import upload_file_to_s3, get_unique_filename, remove_file_from_s3
-
+from flask import current_app as app
 song_routes = Blueprint('songs', __name__)
 
 @song_routes.route('/')
 def song_index():
+    cache =  app.extensions['cache']
     songs = Song.query.all()
     print(songs)
     # for song in songs:
