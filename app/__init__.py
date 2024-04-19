@@ -7,8 +7,12 @@ from flask_login import LoginManager
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
+from .api.routes.song_routes import song_routes
+from .api.routes.playlist_routes import playlist_routes
 from .seeds import seed_commands
 from .config import Config
+from .api.routes.comments_routes import comment_routes
+from .api.routes.likes_routes import likes_routes, current_likes
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
 
@@ -28,6 +32,15 @@ app.cli.add_command(seed_commands)
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
+app.register_blueprint(comment_routes, url_prefix='/api/song/<int:songId>')
+app.register_blueprint(likes_routes, url_prefix='/api/song/<int:songId>')
+app.register_blueprint(current_likes, url_prefix='/api/song/likes/user')
+
+# song route
+app.register_blueprint(song_routes, url_prefix='/api/songs')
+# playlist route
+app.register_blueprint(playlist_routes, url_prefix='/api/playlists')
+
 db.init_app(app)
 Migrate(app, db)
 

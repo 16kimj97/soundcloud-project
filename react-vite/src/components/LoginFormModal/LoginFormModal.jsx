@@ -28,12 +28,25 @@ function LoginFormModal() {
     }
   };
 
+  function loginDemo(){
+    // console.log('login as demo')
+    const email = "hun@aa.io";
+    const password = "password";
+    closeModal()
+    dispatch(
+      thunkLogin({
+      email,
+      password,
+    })
+  )
+  }
+
   return (
-    <>
+    <div className="login-modal">
       <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
+      <form className="login-form" onSubmit={handleSubmit}>
         <label>
-          Email
+          Email:
           <input
             type="text"
             value={email}
@@ -43,7 +56,7 @@ function LoginFormModal() {
         </label>
         {errors.email && <p>{errors.email}</p>}
         <label>
-          Password
+          Password:
           <input
             type="password"
             value={password}
@@ -53,8 +66,10 @@ function LoginFormModal() {
         </label>
         {errors.password && <p>{errors.password}</p>}
         <button type="submit">Log In</button>
+        <hr></hr>
+        <button onClick={loginDemo}>Login as Demo-user</button>
       </form>
-    </>
+    </div>
   );
 }
 
