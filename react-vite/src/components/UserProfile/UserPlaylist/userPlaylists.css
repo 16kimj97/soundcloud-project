@@ -30,8 +30,8 @@
 }
 
 .playlist-item img {
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     border-radius: 4px;
     margin-right: 20px;
 }
@@ -39,7 +39,7 @@
 .playlist-details {
     flex-grow: 1;
 }
-.playlist-title {
+.playlist-name {
     font-size: 16px;
     font-weight: bold;
     color: #333;

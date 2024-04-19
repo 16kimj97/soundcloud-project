@@ -41,8 +41,6 @@ const UserProfile = () => {
     const toggleTracks = (e) => {
         e.preventDefault();
         setShowTracks(!showTracks);
-        setShowDetails(false);
-        setShowPlaylists(false);
     };
 
     const toggleDetails = () => {
@@ -51,8 +49,6 @@ const UserProfile = () => {
 
     const togglePlaylists = () => {
         setShowPlaylists(!showPlaylists);
-        setShowDetails(false);
-        setShowTracks(false);
     };
 
     // if (!user) {
