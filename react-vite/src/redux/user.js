@@ -76,7 +76,7 @@ const userReducer = (state = initialState, action) => {
         case FETCH_SONGS:
             return {
                 ...state,
-                songs:action.payload
+                songs: action.payload
             }
         case FETCH_PLAYLISTS:
             return {

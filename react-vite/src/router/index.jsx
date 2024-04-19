@@ -5,16 +5,10 @@ import HomePage from '../components/HomePage';
 import Layout from './Layout';
 import SongDetails from '../components/SongDetails';
 import SongFormPage from '../components/SongFormPage';
-<<<<<<< HEAD
-<<<<<<< HEAD
 import UserProfile from '../components/UserProfile/profile';
 import LoginFormPage from '../components/LoginFormPage/LoginFormPage';
 import UserTracks from '../components/UserProfile/UserTracks/userTracks';
 import LikedSongs from '../components/UserProfile/UserLikes/userLikes';
-=======
->>>>>>> parent of 7bd8685 (fix conflict)
-=======
->>>>>>> parent of 7bd8685 (fix conflict)
 
 export const router = createBrowserRouter([
   {
@@ -26,14 +20,12 @@ export const router = createBrowserRouter([
       },
       {
         path: "/songs/:songId",
-        element: <SongDetails/> 
+        element: <SongDetails/>
       },
       {
         path: "/songs/new",
         element: <SongFormPage/>,
       },
-<<<<<<< HEAD
-<<<<<<< HEAD
       {
         path: "/login",
         element: <LoginFormPage />,
@@ -52,17 +44,10 @@ export const router = createBrowserRouter([
         path: 'user/current/likes',
         element: <LikedSongs />
       }
-=======
-=======
->>>>>>> parent of 7bd8685 (fix conflict)
       // {
       //   path: "/login",
       //   element: <LoginFormPage />,
       // },
-<<<<<<< HEAD
->>>>>>> parent of 7bd8685 (fix conflict)
-=======
->>>>>>> parent of 7bd8685 (fix conflict)
       // {
       //   path: "/signup",
       //   element: <SignupFormPage />,
