@@ -6,12 +6,8 @@ from .playlist_songs import playlist_songs
 class Playlist(db.Model):
     __tablename__ = 'playlists'
 
-<<<<<<< HEAD
-    if environment == "production": __table_args__ = {'schema': SCHEMA}
-=======
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
->>>>>>> 49749ed45c218ea77617831afc5695f12fe2de3e
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), nullable=False)
