@@ -46,13 +46,13 @@ function HomePage() {
 
       {selectedSong && (
         <div className="footer">
-          {/* <AudioPlayer
+          <AudioPlayer
             autoPlay
             // src={selectedSong.song_url}
             src={selectedSong.song_url ? selectedSong.song_url : "../../public/demosong.mp3"}
             onPlay={(e) => console.log(e)}
           // other props here
-          /> */}
+          />
         </div>
       )}
     </div>
