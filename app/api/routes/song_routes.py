@@ -10,14 +10,12 @@ song_routes = Blueprint('songs', __name__)
 @song_routes.route('/')
 def song_index():
     songs = Song.query.all()
-    print(songs)
-    # for song in songs:
+
     return [song.to_dict() for song in songs]
 
 @song_routes.route('/new', methods=['POST'])
 @login_required
 def post_song():
-
     form = AddSongForm()
     form['csrf_token'].data =request.cookies['csrf_token']
 
@@ -26,8 +24,8 @@ def post_song():
         song_url.filename = get_unique_filename(song_url.filename)
         song_upload = upload_file_to_s3(song_url)
 
-
         preview_img = form.data['preview_img']
+
         if(preview_img):
             preview_img.filename = get_unique_filename(preview_img.filename)
             preview_img_upload = upload_file_to_s3(preview_img)
@@ -46,50 +44,11 @@ def post_song():
         new_song = Song(**params)
         db.session.add(new_song)
         db.session.commit()
-        # print(new_song.to_dict())
+
         return new_song.to_dict()
 
     return {"message": "validation failed"}, 401
 
-# @song_routes.route('/new', methods=['POST'])
-# @login_required
-# def post_song():
-#     print("=========from song route===============")
-#     print("UserId, =======>", current_user)
-#     print("UserId, =======>", current_user.id)
-#     form = AddSongForm()
-
-#     form['csrf_token'].data =request.cookies['csrf_token']
-
-#     if form.validate_on_submit():
-
-#         # song_url = form.data["song_url"]
-#         # song_url.filename = get_unique_filename(song_url.filename)
-#         # song_upload = upload_file_to_s3(song_url)
-#         # print("--->", song_url)
-
-#         # preview_img = form.data['preview_img']
-#         # if(preview_img):
-#         #     preview_img.filename = get_unique_filename(preview_img.filename)
-#         #     preview_img_upload = upload_file_to_s3(preview_img)
-
-#         print('title:', form.data['title'])
-#         print('artist:', form.data['artist'])
-#         print('album:', form.data['album'])
-#         print('release_date:', form.data['release_date'])
-#         print('genre:', form.data['genre'])
-#         print('user_id:', current_user.id)
-#         print('preview_img:', form.data['preview_img'])
-#         print('song_url:', form.data["song_url"])
-
-
-#         # new_song = Song(**params)
-#         # db.session.add(new_song)
-#         # db.session.commit()
-#         # return new_song.to_dict()
-#         return {"message": "success"}
-
-#     # return {"message": "validation failed"}, 401
 
 @song_routes.route('/<int:songId>', methods=['DELETE'])
 @login_required
@@ -136,29 +95,28 @@ def edit_song(songId):
         remove_file_from_s3(song.song_url) if '/' in song.song_url else None
 
         song_url = form.data["song_url"]
-        print(song_url)
+
         song_url.filename = get_unique_filename(song_url.filename)
         song_upload = upload_file_to_s3(song_url)
 
         preview_img = form.data['preview_img']
+
         if(preview_img):
             preview_img.filename = get_unique_filename(preview_img.filename)
             preview_img_upload = upload_file_to_s3(preview_img)
 
-        song.title= form.data['title']
-        song.artist =form.data['artist']
-        song.album =form.data['album']
+        song.title = form.data['title']
+        song.artist = form.data['artist']
+        song.album = form.data['album']
         song.release_date = form.data['release_date']
-        song.genre =form.data['genre']
-        song.user_id=current_user.id
-        song.preview_img= preview_img_upload['url'] if preview_img else None
+        song.genre = form.data['genre']
+        song.user_id = current_user.id
+        song.preview_img = preview_img_upload['url'] if preview_img else None
         song.song_url = song_upload['url']
 
         db.session.commit()
         return song.to_dict()
 
-    # return {form.errors}
-    print(form.errors)
     return jsonify("not updated"), 404
 
 @song_routes.route('/<int:songId>')
@@ -173,7 +131,6 @@ def get_song_details(songId):
 @song_routes.route('/user/current')
 @login_required
 def get_all_songs_current():
-    # return "hello"
     songs = Song.query.filter(Song.user_id == current_user.id).all()
 
     if not songs:
